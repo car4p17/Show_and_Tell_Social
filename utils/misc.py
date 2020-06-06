@@ -14,7 +14,9 @@ class ImageLoader(object):
     def load_image(self, image_file):
         """ Load and preprocess an image. """
         preprocess_folder = "./preprocessed_images/"
-        preprocess_image_file = os.path.join(preprocess_folder, image_file[2:])
+        preprocess_image_file = preprocess_folder + image_file[2:]
+        if not "." in image_file[2:]:
+            preprocess_image_file = preprocess_image_file + ".jpg"
         if os.path.exists(preprocess_image_file):
             image = cv2.imread(preprocess_image_file)
             return image
@@ -44,6 +46,10 @@ class ImageLoader(object):
         """ Load and preprocess a list of images. """
         images = []
         for image_file in image_files:
-            images.append(self.load_image(image_file))
+            try:
+                images.append(self.load_image(image_file))
+            except:
+                print(image_file)
+                images.append(images[0])
         images = np.array(images, np.float32)
         return images

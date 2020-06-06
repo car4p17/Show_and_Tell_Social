@@ -1,0 +1,16 @@
+
+config.py
+
+train/Train_GCC-training.tsv
+
+val/Validation_GCC-1.1.0-Validation.tsv
+
+vgg16_weights.npz
+
+val/*
+train/*
+models/*
+instagram_json/*
+preprocessed_images/*
+json.tar.gz
+summary/*

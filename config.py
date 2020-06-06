@@ -4,7 +4,7 @@ class Config(object):
     def __init__(self):
         # about the model architecture
         self.cnn = 'vgg16'               # 'vgg16' or 'resnet50'
-        self.max_caption_length = 20
+        self.max_caption_length = 50
         self.dim_embedding = 512
         self.num_lstm_units = 512
         self.num_initalize_layers = 1 ## Changed from 2 to 1    # 1 or 2
@@ -41,18 +41,18 @@ class Config(object):
         self.epsilon = 1e-6
 
         # about the saver
-        self.save_period = 10
-        self.save_dir = './models/2017/1000/'
+        self.save_period = 100
+        self.save_dir = './models/insta/1000/'
         self.summary_dir = './summary/'
 
         # about the vocabulary
-        self.vocabulary_file = './2017vocabulary.csv'
-        self.vocabulary_size = 5000
+        self.vocabulary_file = './googlevocabulary.csv'
+        self.vocabulary_size = 2456
 
         # about the training
-        self.train_image_dir = './train/train2017/'
-        self.train_caption_file = './train/captions_train2017.json'
-        self.temp_annotation_file = './train/2017annsSmall.csv'
+        self.train_image_dir = './train/traininsta/'
+        self.train_caption_file = './train/captions_traininsta.json'
+        self.temp_annotation_file = './train/instagramanns.csv'
         self.temp_data_file = './train/data.npy'
 
         # about the evaluation
@@ -64,7 +64,7 @@ class Config(object):
 
         # about the testing
         self.test_image_dir = './test/images/'
-        self.test_result_dir = './test/results/'
+        self.test_result_dir = './test/results/google/'
         self.test_result_file = './test/results.csv'
 
         self.trainable_variable = False

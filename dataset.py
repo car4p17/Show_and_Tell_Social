@@ -72,17 +72,8 @@ class DataSet(object):
 def prepare_train_data(config):
 
     """ Prepare the data for training the model. """
-    coco = COCO(config.train_caption_file)
     vocabulary = Vocabulary(config.vocabulary_size)
 
-    if not os.path.exists(config.vocabulary_file):
-        coco.filter_by_cap_len(config.max_caption_length)
-        print("Building the vocabulary...")
-        vocabulary.build(coco.all_captions())
-        vocabulary.save(config.vocabulary_file)
-    else:
-        print("Loading the vocabulary from ", config.vocabulary_file)
-        vocabulary.load(config.vocabulary_file)
     print("Vocabulary complete.")
     print("Number of words = %d" %(vocabulary.size))
 
@@ -111,10 +102,18 @@ def prepare_train_data(config):
         annotations.to_csv(config.temp_annotation_file)
     else:
         print("Loading the captions from ", config.temp_annotation_file)
-        annotations = pd.read_csv(config.temp_annotation_file)
+        annotations = pd.read_csv(config.temp_annotation_file, encoding='latin-1')
         captions = annotations['caption'].values
         image_ids = annotations['image_id'].values
         image_files = annotations['image_file'].values
+
+    if not os.path.exists(config.vocabulary_file):
+        print("Building the vocabulary...")
+        vocabulary.build(captions)
+        vocabulary.save(config.vocabulary_file)
+    else:
+        print("Loading the vocabulary from ", config.vocabulary_file)
+        vocabulary.load(config.vocabulary_file)
 
     if not os.path.exists(config.temp_data_file):
         word_idxs = []
